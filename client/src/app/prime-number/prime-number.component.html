@@ -1,0 +1,12 @@
+<form [formGroup]="primeNumberFormGroup">
+  <div class="card flex justify-content-center" style="margin-top:30px">
+        <span class="p-float-label">
+            <p-inputNumber inputId="integeronly" formControlName="limit"> </p-inputNumber>
+            <label>Prime Number Limit</label>
+        </span>
+  </div>
+
+  <div class="card flex justify-content-center">
+    <p-button label="Submit" (click)="getPrimeNumbers()"></p-button>
+  </div>
+</form>
