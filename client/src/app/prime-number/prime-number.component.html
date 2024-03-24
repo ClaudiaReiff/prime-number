@@ -6,7 +6,24 @@
         </span>
   </div>
 
-  <div class="card flex justify-content-center">
-    <p-button label="Submit" (click)="getPrimeNumbers()"></p-button>
+  <div class="card flex justify-content-center" style="margin-top: 4px">
+    <p-button label="Submit" (click)="getPrimeNumbers()"
+              [disabled]="primeNumberFormGroup.invalid"></p-button>
   </div>
 </form>
+
+<div style="margin-top: 4px">
+  @if(computationTime != null){
+    <div>Computation time: {{computationTime}}ms</div>
+  }
+  @if (numberList.length >= 1){
+    <div style="display: flex;margin-top: 4px">
+      <div>Prime numbers: </div>
+      @for (number of numberList; track number) {
+        {{number}}
+      } @empty {
+        Empty list of numbers
+      }
+    </div>
+  }
+</div>

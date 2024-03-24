@@ -7,6 +7,6 @@ export class PrimeNumberHttpService {
   constructor(private httpClient: HttpClient) {}
 
   getAll(limit:number) {
-    return this.httpClient.get<{ primeNumbers:number[], computationTime:number }>(`/api/prime-number/get-all/${limit}`);
+    return this.httpClient.get<PrimeNumberResponse>(`/api/PrimeNumber/get-all/${limit}`);
   }
 }

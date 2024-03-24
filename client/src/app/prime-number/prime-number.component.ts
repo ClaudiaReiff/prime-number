@@ -1,7 +1,7 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 
-import { Subscription} from "rxjs";
+import {catchError, map, throwError} from "rxjs";
 import {InputNumberModule} from "primeng/inputnumber";
 import {ButtonModule} from "primeng/button";
 import {PrimeNumberHttpService} from "../../services/prime-number-http.service";
@@ -18,6 +18,9 @@ import {PrimeNumberHttpService} from "../../services/prime-number-http.service";
   ],
 })
 export class PrimeNumberComponent{
+  numberList: number[] = [];
+  computationTime!: number;
+  error: string | null = null;
 
   primeNumberFormGroup = new FormGroup({
     limit: new FormControl<number>(0, [Validators.required, Validators.min(2)])
@@ -26,10 +29,22 @@ export class PrimeNumberComponent{
 
   constructor(private primeNumberHttpService: PrimeNumberHttpService) {}
 
-  getPrimeNumbers(){
+  /**
+   * Get all prime numbers up to a limit with computation time
+   */
+  getPrimeNumbers() {
     const limit = this.primeNumberFormGroup.value.limit;
-    if(limit){
-      this.primeNumberHttpService.getAll(limit).subscribe();
+    if (limit) {
+      this.primeNumberHttpService.getAll(limit).pipe(
+        map((response: any) => {
+          this.numberList = response.primeNumbers;
+          this.computationTime = response.computationTime;
+        }),
+        catchError((error) => {
+          this.error = "An error occurred while fetching prime numbers.";
+          return throwError(error);
+        })
+      ).subscribe();
     }
   }
 }

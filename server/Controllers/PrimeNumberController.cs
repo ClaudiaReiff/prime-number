@@ -5,7 +5,7 @@ using server.ApiModels;
 namespace server.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class PrimeNumberController : ControllerBase
 {
     /**
