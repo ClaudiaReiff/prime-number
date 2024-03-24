@@ -8,6 +8,9 @@ namespace server.Controllers;
 [Route("api/[controller]")]
 public class PrimeNumberController : ControllerBase
 {
+    /**
+     * Get all prime numbers up to a limit
+     */
     [HttpGet("get-all/{limit}")]
     public Task<ActionResult<PrimeNumberRes>> GetAll([FromRoute] int limit)
     {
@@ -50,6 +53,7 @@ public class PrimeNumberController : ControllerBase
                 return false;
             }
         }
+        
         return true;
     }
 }
